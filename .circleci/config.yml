@@ -15,6 +15,12 @@ jobs:
           name: Install dependencies
           command: pip install -r requirements.txt
       - run:
+          name: Run flake8
+          command: flake8 --exclude=venv* --statistics
+      - run:
+          name: Run tests with coverage
+          command: pytest -v --cov=calculator
+      - run:
           name: Run tests
           command: pytest --junitxml=junit.xml || ((($? == 5)) && echo 'Did not find any tests to run.')
       - store_test_results:
